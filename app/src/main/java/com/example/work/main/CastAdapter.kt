@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.work.R
 import com.example.work.model.Cast
 
-class CastAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CastAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var data: List<Cast> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =

@@ -9,7 +9,7 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class MainViewModel(val castRepo: CastRepo) : ViewModel() {
+class MainViewModel(private val castRepo: CastRepo) : ViewModel() {
     val castsData = MutableLiveData<List<Cast>>()
     private var fetchCastJob: Job = CompletableDeferred(Unit)
 
@@ -19,5 +19,4 @@ class MainViewModel(val castRepo: CastRepo) : ViewModel() {
             castsData.value = castRepo.getCasts().postcastWrapper.list
         }
     }
-
 }
