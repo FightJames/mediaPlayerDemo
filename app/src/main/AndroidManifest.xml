@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Work">
-        <activity android:name=".castdetail.CastDetailActivity"></activity>
+        <activity android:name=".player.PlayActivity"></activity>
+        <activity android:name=".castdetail.CastDetailActivity" />
         <activity android:name=".main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
