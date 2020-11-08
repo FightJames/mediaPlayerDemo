@@ -19,5 +19,7 @@ interface PlayInterface {
 
     fun reset()
 
+    fun prepare()
+
     fun isPlaying() :Boolean
 }

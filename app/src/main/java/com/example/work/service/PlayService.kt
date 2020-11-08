@@ -64,6 +64,9 @@ class PlayService : Service(), PlayInterface {
     override fun reset() =
         mediaPlayer.reset()
 
+    override fun prepare()  =
+        mediaPlayer.prepare()
+
     override fun isPlaying(): Boolean =
         mediaPlayer.isPlaying
 

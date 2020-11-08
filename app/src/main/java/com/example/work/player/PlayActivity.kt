@@ -7,8 +7,8 @@ import android.content.ServiceConnection
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
-import android.util.Log
 import android.view.View
+import android.widget.SeekBar
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.work.R
@@ -42,13 +42,15 @@ class PlayActivity : AppCompatActivity() {
         play_play_image.setOnClickListener { view ->
             playService?.let { player ->
                 if (!view.isSelected) {
-                    Log.d("James"," view.isSelected = ${view.isSelected}")
                     if (player.getCurrentSong() != playArgs.songUrl) {
-                        Log.d("James","play btn reset, ${playArgs.songUrl}")
                         player.reset()
                         player.setSong(playArgs.songUrl)
+                        player.prepare()
                         player.start()
-                        play_total_text.text = formateTime(player.getCurrentMilliSec())
+                        player.getTotalMilliSec().let {
+                            play_total_text.text = formateTime(it)
+                            play_seekbar.max = it
+                        }
                     } else {
                         player.start()
                     }
@@ -58,12 +60,42 @@ class PlayActivity : AppCompatActivity() {
                 view.isSelected = !view.isSelected
             }
         }
+        var isTouchSeekbar = false
         lifecycleScope.launchWhenStarted {
             while (true) {
                 playService?.let {
                     play_cur_text.text = formateTime(it.getCurrentMilliSec())
+                    if (it.getTotalMilliSec() != 0 && !isTouchSeekbar)
+                        play_seekbar.progress = it.getCurrentMilliSec()
                 }
                 delay(500)
+            }
+        }
+        play_seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                isTouchSeekbar = true
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+                isTouchSeekbar = true
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                playService?.let {
+                    it.seekTo(seekBar.progress)
+                }
+                isTouchSeekbar = false
+            }
+        })
+        play_forward_image.setOnClickListener {
+            playService?.let {
+                it.seekTo(it.getCurrentMilliSec() + 30000)
+            }
+        }
+
+        play_backward_image.setOnClickListener {
+            playService?.let {
+                it.seekTo(it.getCurrentMilliSec() - 30000)
             }
         }
     }
@@ -83,11 +115,18 @@ class PlayActivity : AppCompatActivity() {
             override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
                 play_progressbar.visibility = View.GONE
                 playService = (service as? PlayService.PlayBinder)?.getPlayService()?.apply {
-                    play_play_image.isSelected = getCurrentSong() != playArgs.songUrl
-                    if (play_play_image.isSelected) play_play_image.isSelected = isPlaying()
-                    play_total_text.text = this@PlayActivity.formateTime(getCurrentMilliSec())
+                    if (getCurrentSong() == playArgs.songUrl) {
+                        play_play_image.isSelected = isPlaying()
+                        getTotalMilliSec().let {
+                            play_seekbar.max = it
+                            play_total_text.text = formateTime(it)
+                        }
+                        getCurrentMilliSec().let {
+                            play_seekbar.progress = it
+                            play_cur_text.text = formateTime(it)
+                        }
+                    }
                 }
-                Log.d("James_debug", " $playService")
             }
         }, Context.BIND_AUTO_CREATE)
     }

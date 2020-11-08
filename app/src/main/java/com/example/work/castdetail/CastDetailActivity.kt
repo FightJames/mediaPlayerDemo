@@ -1,25 +1,30 @@
 package com.example.work.castdetail
 
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
+import android.os.IBinder
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.work.CastViewModelFactory
 import com.example.work.R
+import com.example.work.service.PlayService
 import kotlinx.android.synthetic.main.activity_cast_detail.*
-import kotlinx.android.synthetic.main.main_cast_item.view.*
 
 class CastDetailActivity : AppCompatActivity() {
     lateinit var viewModel: CastDetailViewModel
     private val castDetailadapter = CastDetailAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cast_detail)
+        initPlayService()
         initView()
         initViewModel()
         viewModel.fetchCastDetails()
@@ -48,6 +53,19 @@ class CastDetailActivity : AppCompatActivity() {
             detail_cast_artist_name.text = it.artistName
         })
     }
+
+    private fun initPlayService() {
+        startService(PlayService.getIntent(this))
+        bindService(PlayService.getIntent(this), object : ServiceConnection {
+            override fun onServiceDisconnected(name: ComponentName?) {
+            }
+
+            override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+                castDetailadapter.playService = (service as? PlayService.PlayBinder)?.getPlayService()
+            }
+        }, Context.BIND_AUTO_CREATE)
+    }
+
 
     companion object {
         fun getIntent(context: Context): Intent =

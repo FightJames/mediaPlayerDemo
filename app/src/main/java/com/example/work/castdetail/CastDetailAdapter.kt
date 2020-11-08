@@ -5,13 +5,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.work.R
 import com.example.work.model.Content
+import com.example.work.service.PlayInterface
 
 class CastDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var data: List<Content> = emptyList()
+    private var isPlaying = BooleanArray(0)
+    var playService: PlayInterface? = null
+        set(value) {
+            field = value
+        }
+
     private var largeImageUrl: String = ""
 
     fun setData(input: List<Content>, largeImageUrl: String) {
         data = input
+        isPlaying = BooleanArray(data.size) { false }
         this.largeImageUrl = largeImageUrl
         notifyDataSetChanged()
     }
@@ -24,6 +32,11 @@ class CastDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? CastDetailViewHolder)?.bind(data[position], largeImageUrl)
+        (holder as? CastDetailViewHolder)?.bind(
+            data[position],
+            largeImageUrl,
+            playService,
+            playService?.getCurrentSong() == data[position].url
+        )
     }
 }
