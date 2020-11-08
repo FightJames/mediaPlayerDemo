@@ -9,7 +9,6 @@ import com.example.work.service.PlayInterface
 
 class CastDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var data: List<Content> = emptyList()
-    private var isPlaying = BooleanArray(0)
     var playService: PlayInterface? = null
         set(value) {
             field = value
@@ -19,7 +18,6 @@ class CastDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun setData(input: List<Content>, largeImageUrl: String) {
         data = input
-        isPlaying = BooleanArray(data.size) { false }
         this.largeImageUrl = largeImageUrl
         notifyDataSetChanged()
     }
