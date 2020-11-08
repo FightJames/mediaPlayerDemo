@@ -8,9 +8,11 @@ import com.example.work.model.Content
 
 class CastDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var data: List<Content> = emptyList()
+    private var largeImageUrl: String = ""
 
-    fun setData(input: List<Content>) {
+    fun setData(input: List<Content>, largeImageUrl: String) {
         data = input
+        this.largeImageUrl = largeImageUrl
         notifyDataSetChanged()
     }
 
@@ -19,10 +21,9 @@ class CastDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             LayoutInflater.from(parent.context).inflate(R.layout.detail_cast_item, parent, false)
         )
 
-
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? CastDetailViewHolder)?.bind(data[position])
+        (holder as? CastDetailViewHolder)?.bind(data[position], largeImageUrl)
     }
 }

@@ -39,7 +39,7 @@ class CastDetailActivity : AppCompatActivity() {
             CastViewModelFactory(application)
         ).get(CastDetailViewModel::class.java)
         viewModel.castDetailsData.observe(this, Observer {
-            castDetailadapter.setData(it.contents)
+            castDetailadapter.setData(it.contents, it.artworkLargeImageUrl)
             Glide.with(this)
                 .load(it.artworkSmallImageUrl)
                 .fitCenter()
