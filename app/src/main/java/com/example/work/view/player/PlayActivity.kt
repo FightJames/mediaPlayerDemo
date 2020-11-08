@@ -1,4 +1,4 @@
-package com.example.work.player
+package com.example.work.view.player
 
 import android.content.ComponentName
 import android.content.Context

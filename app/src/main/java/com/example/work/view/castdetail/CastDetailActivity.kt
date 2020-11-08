@@ -1,4 +1,4 @@
-package com.example.work.castdetail
+package com.example.work.view.castdetail
 
 import android.content.ComponentName
 import android.content.Context
@@ -7,7 +7,6 @@ import android.content.ServiceConnection
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager

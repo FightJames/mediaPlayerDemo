@@ -1,4 +1,4 @@
-package com.example.work.castdetail
+package com.example.work.view.castdetail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

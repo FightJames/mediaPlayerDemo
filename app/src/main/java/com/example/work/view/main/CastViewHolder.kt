@@ -1,9 +1,9 @@
-package com.example.work.main
+package com.example.work.view.main
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.work.castdetail.CastDetailActivity
+import com.example.work.view.castdetail.CastDetailActivity
 import com.example.work.model.Cast
 import kotlinx.android.synthetic.main.main_cast_item.view.*
 

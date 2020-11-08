@@ -1,10 +1,10 @@
-package com.example.work.castdetail
+package com.example.work.view.castdetail
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.work.model.Content
-import com.example.work.player.PlayActivity
-import com.example.work.player.PlayArgs
+import com.example.work.view.player.PlayActivity
+import com.example.work.view.player.PlayArgs
 import com.example.work.service.PlayInterface
 import kotlinx.android.synthetic.main.detail_cast_item.view.*
 

@@ -3,8 +3,8 @@ package com.example.work
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.work.castdetail.CastDetailViewModel
-import com.example.work.main.MainViewModel
+import com.example.work.view.castdetail.CastDetailViewModel
+import com.example.work.view.main.MainViewModel
 import com.example.work.repo.CastRepo
 import com.example.work.repo.RepoFactory
 

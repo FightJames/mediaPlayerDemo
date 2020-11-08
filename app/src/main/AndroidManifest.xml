@@ -17,9 +17,9 @@
             android:enabled="true"
             android:exported="true"></service>
 
-        <activity android:name=".player.PlayActivity" />
-        <activity android:name=".castdetail.CastDetailActivity" />
-        <activity android:name=".main.MainActivity">
+        <activity android:name="com.example.work.view.player.PlayActivity" />
+        <activity android:name="com.example.work.view.castdetail.CastDetailActivity" />
+        <activity android:name="com.example.work.view.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".player.PlayActivity">
+    tools:context=".view.player.PlayActivity">
 
     <ImageView
         android:id="@+id/play_back_image"
